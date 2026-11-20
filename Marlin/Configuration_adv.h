@@ -5031,7 +5031,7 @@
 //
 // M43 - display pin status, toggle pins, watch pins, watch endstops & toggle LED, test servo probe
 //
-//#define PINS_DEBUGGING
+#define PINS_DEBUGGING // Hellbot diag: M43 para inspeccionar pines en vivo (quitar al resolver el DIR de Z)
 
 //
 // M265 - I2C Scanner
