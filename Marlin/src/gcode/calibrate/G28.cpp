@@ -172,21 +172,29 @@
 
     TERN_(HOMING_Z_WITH_PROBE, motion.destination -= probe.offset_xy);
 
-    if (motion.can_reach(motion.destination)) {
+    if (homing_with_probe) {
+      // Hellbot: solo mover XY al punto seguro cuando se homingea con el probe.
+      // Sin probe (M730 S0), el Z_MIN (PC13) está en posición fija del carro:
+      // mover XY al centro solo hace perder tiempo a alta velocidad.
+      if (motion.can_reach(motion.destination)) {
 
-      if (DEBUGGING(LEVELING)) DEBUG_POS("home_z_safely", motion.destination);
+        if (DEBUGGING(LEVELING)) DEBUG_POS("home_z_safely", motion.destination);
 
-      // Free the active extruder for movement
-      TERN_(DUAL_X_CARRIAGE, motion.idex_set_parked(false));
+        // Free the active extruder for movement
+        TERN_(DUAL_X_CARRIAGE, motion.idex_set_parked(false));
 
-      TERN_(SENSORLESS_HOMING, safe_delay(500)); // Short delay needed to settle
+        TERN_(SENSORLESS_HOMING, safe_delay(500)); // Short delay needed to settle
 
-      motion.blocking_move_xy(motion.destination);
-      motion.homeaxis(Z_AXIS);
+        motion.blocking_move_xy(motion.destination);
+        motion.homeaxis(Z_AXIS);
+      }
+      else {
+        LCD_MESSAGE(MSG_ZPROBE_OUT);
+        SERIAL_ECHO_MSG(STR_ZPROBE_OUT_SER);
+      }
     }
     else {
-      LCD_MESSAGE(MSG_ZPROBE_OUT);
-      SERIAL_ECHO_MSG(STR_ZPROBE_OUT_SER);
+      motion.homeaxis(Z_AXIS); // Hellbot: homing Z directo por endstop, sin mover XY
     }
   }
 
