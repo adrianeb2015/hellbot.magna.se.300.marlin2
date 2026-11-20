@@ -2801,7 +2801,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-//#define SDSUPPORT // Hellbot: DESACTIVADA temporalmente (crashea el FW sin/m con tarjeta; se depura despues)
+#define SDSUPPORT // Hellbot: re-activada con bus real SPI3 (PB3/PB4/PB5) tras corregir el SPI_DEVICE del HAL
 
 /**
  * SD CARD: ENABLE CRC

@@ -69,12 +69,16 @@
 #define Z_MIN_PROBE_PIN                     PA8    // BLTouch: señal probe en el mismo pin servo (PWM deploy/stow + entrada endstop)
 
 //
-// SD card: SPI1 compartido con flash (PB5=SCK, PB6=MISO, PB7=MOSI)
+// SD card: SPI3 compartido con flash W25Q (verificado en el fuente de fabrica:
+// Src/spi.c MX_SPI3_Init -> SCK=PB3, MISO=PB4, MOSI=PB5; Src/MMC_SD.C CS=PD2)
+// Requiere liberar PB3/PB4 del SWJ (AT32_jtag_disable en HAL.cpp, ya aplicado).
+// La flash W25Q comparte el bus con CS=PA4: mantenerla en HIGH (ver spiBegin).
 //
-#define SCK_PIN                             PB5
-#define MISO_PIN                            PB6
-#define MOSI_PIN                            PB7
+#define SCK_PIN                             PB3
+#define MISO_PIN                            PB4
+#define MOSI_PIN                            PB5
 #define SD_SS_PIN                           PD2    // SD_CS
+#define SD_SPI_FLASH_CS_PIN                 PA4    // CS flash W25Q (mismo bus)
 
 //
 // TFT MKS TS35-R V2.0 (SPI2) + touch XPT2046

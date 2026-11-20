@@ -2093,7 +2093,7 @@
   //#define SDCARD_CONNECTION LCD
 
   // Enable if SD detect is rendered useless (e.g., by using an SD extender)
-  //#define NO_SD_DETECT
+  #define NO_SD_DETECT // Hellbot: el slot SD no tiene pin de deteccion
 
   /**
    * Multiple volume support - EXPERIMENTAL.

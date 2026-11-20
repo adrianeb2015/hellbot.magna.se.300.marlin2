@@ -31,7 +31,7 @@
 // expecting the application to instantiate one. Bind Marlin's global `SPI`
 // object to the peripheral selected by the board.
 #ifndef SPI_DEVICE
-  #define SPI_DEVICE 1
+  #define SPI_DEVICE 3 // Hellbot: bus SD real del Magna SE = SPI3 (PB3/PB4/PB5, factory Src/spi.c MX_SPI3_Init)
 #endif
 
 #if SPI_DEVICE == 1
@@ -47,6 +47,9 @@
 void spiBegin() {
   #if PIN_EXISTS(SD_SS)
     OUT_WRITE(SD_SS_PIN, HIGH);
+  #endif
+  #if PIN_EXISTS(SD_SPI_FLASH_CS) // W25Q del mismo bus: dejarlo deseleccionado SIEMPRE
+    OUT_WRITE(SD_SPI_FLASH_CS_PIN, HIGH);
   #endif
 }
 
