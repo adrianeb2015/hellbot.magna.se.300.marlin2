@@ -43,6 +43,11 @@ MarlinServo::MarlinServo() {
 int8_t MarlinServo::attach(const int apin) {
   if (apin >= 0) this->pin = apin;
   if (this->pin < 0) return -1;
+  // Hellbot fix: NO re-attach si ya esta attached. El core Servo::attach, cuando
+  // ya estaba attached, llama detach() que deja pin=0 y luego configure_pin()/
+  // configure_timer() usan ese 0 -> muxan PA0 (Z_DIR!) a AF de TMR2 (el timer de
+  // steps del HAL) y Z deja de cambiar de direccion. Ver core Servo.cpp.
+  if (this->attached()) return 0;
   return this->_servo.attach(this->pin) ? 0 : -1;
 }
 
