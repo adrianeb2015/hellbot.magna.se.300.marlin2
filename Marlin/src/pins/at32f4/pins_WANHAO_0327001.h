@@ -91,3 +91,8 @@
 #endif
 
 #define SDCARD_EEPROM_EMULATION             // Settings stored in a file on the SD card
+
+// Hellbot: backlight y reset del panel TS35 (Src/spi_lcd.c del firmware de fabrica:
+// LCD_GPIOInit -> PC10 = TFT_BLK, PC11 = TFT_RESET)
+#define TFT_BACKLIGHT_PIN                   PC10
+#define TFT_RESET_PIN                       PC11

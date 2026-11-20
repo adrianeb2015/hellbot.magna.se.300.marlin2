@@ -42,9 +42,18 @@ SPIClass &TFT_SPI::SPIx = tftSPI;
 uint8_t TFT_SPI::dataSize = DATA_SIZE_16BIT;
 
 void TFT_SPI::init() {
+  #if PIN_EXISTS(TFT_BACKLIGHT)
+    OUT_WRITE(TFT_BACKLIGHT_PIN, HIGH); // Hellbot: PC10 = backlight del TS35 (factory TFT_BLK)
+  #endif
+
   #if PIN_EXISTS(TFT_RESET)
+    // Hellbot: PC11 = reset del panel (factory TFT_RESET); pulso 20ms bajo
     OUT_WRITE(TFT_RESET_PIN, HIGH);
-    delay(100);
+    delay(10);
+    WRITE(TFT_RESET_PIN, LOW);
+    delay(20);
+    WRITE(TFT_RESET_PIN, HIGH);
+    delay(150);
   #endif
 
   OUT_WRITE(TFT_A0_PIN, HIGH);
