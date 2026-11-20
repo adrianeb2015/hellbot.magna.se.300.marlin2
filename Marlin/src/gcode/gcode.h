@@ -240,6 +240,7 @@
  * M406 - Disable Filament Sensor flow control. (Requires FILAMENT_WIDTH_SENSOR)
  * M407 - Display measured filament diameter in millimeters. (Requires FILAMENT_WIDTH_SENSOR)
  * M410 - Quickstop. Abort all planned moves.
+ * M730 - Select Z homing device: 'S0' endstop (Z_MIN), 'S1' probe (BLTouch). (Requires a probe; Hellbot custom)
  * M412 - Enable/Disable Filament Runout Detection. (Requires FILAMENT_RUNOUT_SENSOR)
  * M413 - Enable/Disable Power-Loss Recovery. (Requires POWER_LOSS_RECOVERY)
  * M414 - Set language by index. (Requires LCD_LANGUAGE_2...)
@@ -1104,6 +1105,10 @@ private:
 
   #if HAS_PRUSA_MMU2 || HAS_PRUSA_MMU3
     static void M403();
+  #endif
+
+  #if HAS_BED_PROBE
+    static void M730();
   #endif
 
   #if ENABLED(FILAMENT_WIDTH_SENSOR)

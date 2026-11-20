@@ -32,6 +32,7 @@
 #include "menu_addon.h"
 
 #include "../../module/motion.h"
+#include "../../module/probe.h" // Hellbot: para stow al desactivar homing por probe
 #include "../../gcode/parser.h" // for inch support
 #include "../../module/temperature.h"
 
@@ -249,6 +250,10 @@ void menu_move() {
 
   #if ALL(HAS_SOFTWARE_ENDSTOPS, SOFT_ENDSTOPS_MENU_ITEM)
     EDIT_ITEM(bool, MSG_LCD_SOFT_ENDSTOPS, &motion.soft_endstop._enabled);
+  #endif
+
+  #if HAS_BED_PROBE // Hellbot: elegir homing de Z por probe (BLTouch) o endstop Z_MIN
+    EDIT_ITEM(bool, MSG_HOME_Z_PROBE, &homing_with_probe, []{ if (!homing_with_probe) probe.stow(); });
   #endif
 
   // Move submenu for each axis

@@ -75,6 +75,9 @@
 
 Motion motion;
 
+// Hellbot: false = homing Z por endstop Z_MIN; true = homing Z por probe (BLTouch). Toggle: M730 / menu Motion.
+bool homing_with_probe = false;
+
 // Relative Mode. Enable with G91, disable with G90.
 bool Motion::relative_mode; // = false
 
@@ -2610,7 +2613,7 @@ void Motion::prepare_line_to_destination() {
     // Return early if probe deployment fails.
     //
     #if HOMING_Z_WITH_PROBE
-      if (axis == Z_AXIS && probe.deploy()) { probe.stow(); return; }
+      if (axis == Z_AXIS && homing_with_probe && probe.deploy()) { probe.stow(); return; }
     #endif
 
     // Set flags for X, Y, Z motor locking
@@ -2628,7 +2631,7 @@ void Motion::prepare_line_to_destination() {
     // Deploy BLTouch or tare the probe just before probing
     //
     #if HOMING_Z_WITH_PROBE
-      if (axis == Z_AXIS) {
+      if (axis == Z_AXIS && homing_with_probe) {
 
         #if ENABLED(BLTOUCH)
           // BLTouch was deployed above, but get the alarm state.
@@ -2677,7 +2680,7 @@ void Motion::prepare_line_to_destination() {
 
       // Determine if a homing bump will be done and the bumps distance
       // When homing Z with probe respect probe clearance
-      const bool use_probe_bump = TERN0(HOMING_Z_WITH_PROBE, axis == Z_AXIS && home_bump_mm(axis));
+      const bool use_probe_bump = TERN0(HOMING_Z_WITH_PROBE, axis == Z_AXIS && homing_with_probe && home_bump_mm(axis));
       const float bump = axis_home_dir * (
         use_probe_bump ? _MAX(TERN0(HOMING_Z_WITH_PROBE, Z_CLEARANCE_BETWEEN_PROBES), home_bump_mm(axis)) : home_bump_mm(axis)
       );
@@ -2692,7 +2695,7 @@ void Motion::prepare_line_to_destination() {
       // If a second homing move is configured...
       if (bump) {
         #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
-          if (axis == Z_AXIS && !bltouch.high_speed_mode) bltouch.stow(); // Intermediate STOW (in LOW SPEED MODE)
+          if (axis == Z_AXIS && homing_with_probe && !bltouch.high_speed_mode) bltouch.stow(); // Intermediate STOW (in LOW SPEED MODE)
         #endif
 
         // Move away from the endstop by the axis HOMING_BUMP_MM
@@ -2724,7 +2727,7 @@ void Motion::prepare_line_to_destination() {
         #endif // DETECT_BROKEN_ENDSTOP
 
         #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
-          if (axis == Z_AXIS && !bltouch.high_speed_mode && bltouch.deploy()) {
+          if (axis == Z_AXIS && homing_with_probe && !bltouch.high_speed_mode && bltouch.deploy()) {
             bltouch.stow();
             return; // Intermediate DEPLOY (in LOW SPEED MODE)
           }
@@ -2737,7 +2740,7 @@ void Motion::prepare_line_to_destination() {
       }
 
       #if ALL(HOMING_Z_WITH_PROBE, BLTOUCH)
-        if (axis == Z_AXIS) bltouch.stow(); // The final STOW
+        if (axis == Z_AXIS && homing_with_probe) bltouch.stow(); // The final STOW
       #endif
 
       #if HAS_EXTRA_ENDSTOPS

@@ -725,6 +725,7 @@ namespace LanguageNarrow_en {
   LSTR MSG_TOOL_MIGRATION_END             = _UxGT("Last Extruder");
   LSTR MSG_TOOL_MIGRATION_SWAP            = _UxGT("Migrate to *");
   LSTR MSG_BLTOUCH_SPEED_MODE             = _UxGT("High Speed");
+  LSTR MSG_HOME_Z_PROBE                   = _UxGT("Home Z: probe"); // Hellbot
   LSTR MSG_ZPROBE_SETTINGS                = _UxGT("Probe Settings");
   LSTR MSG_ZPROBE_OFFSETS                 = _UxGT("Probe Offsets");
   LSTR MSG_ZPROBE_MARGIN                  = _UxGT("Probe Margin");

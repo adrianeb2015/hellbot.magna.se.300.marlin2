@@ -22,6 +22,12 @@
 #pragma once
 
 /**
+ * Hellbot: homing de Z con probe (BLTouch) o con el endstop Z_MIN (PC13).
+ * Toggle con M730 S0/S1 o desde el menú Motion. false = endstop de fin de carrera.
+ */
+extern bool homing_with_probe;
+
+/**
  * motion.h
  *
  * High-level motion commands to feed the planner
