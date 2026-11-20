@@ -21,6 +21,10 @@
  */
 #pragma once
 
+// Hellbot: debug TFT (imprime ID del panel por serie al arranque)
+#define DEBUG_TFT_IO
+
+
 /**
  * Configuration_adv.h
  *
