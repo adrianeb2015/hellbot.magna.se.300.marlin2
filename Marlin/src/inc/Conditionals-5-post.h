@@ -1984,9 +1984,13 @@
   #define HAS_Y_STATE 1
 #endif
 
-#if _USE_STOP(Z,,MIN,ENABLED(Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN)) && (DISABLED(USE_PROBE_FOR_Z_HOMING) || ENABLED(Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN))
+#if _USE_STOP(Z,,MIN,ENABLED(Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN))
   #define USE_Z_MIN 1
 #endif
+// Hellbot fix: el original quitaba USE_Z_MIN al usar USE_PROBE_FOR_Z_HOMING con
+// probe en pin propio, dejando la impresora SIN endstop Z_MIN. Lo dejamos siempre
+// presente: endstops.cpp ya ignora Z_MIN mientras z_probe_enabled==true, que es
+// exactamente el comportamiento del toggle M730/"Home Z: probe".
 #if _USE_STOP(Z,,MAX,)
   #define USE_Z_MAX 1
 #endif
