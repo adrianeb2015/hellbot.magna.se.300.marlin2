@@ -2556,7 +2556,7 @@
  *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
-//#define EEPROM_SETTINGS     // Persistent storage with M500 and M501
+#define EEPROM_SETTINGS // Hellbot     // Persistent storage with M500 and M501
 //#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save flash.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
@@ -2801,7 +2801,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-//#define SDSUPPORT
+#define SDSUPPORT // Hellbot: SD en SPI1 (PB5/PB6/PB7, CS PD2)
 
 /**
  * SD CARD: ENABLE CRC
@@ -3508,7 +3508,7 @@
 // Usually paired with MKS Robin Nano V2 & V3
 // https://github.com/makerbase-mks/MKS-TFT-Hardware/tree/master/MKS%20TS35
 //
-//#define MKS_TS35_V2_0
+#define MKS_TS35_V2_0 // Hellbot: pantalla de fabrica (ILI9488 SPI2 + XPT2046)
 
 //
 // MKS TS24-R V2.1 (2.4" 320x240 ST7789V) as shipped with the MKS DLC32
@@ -3622,7 +3622,7 @@
  *   root of your SD card, together with the compiled firmware.
  */
 //#define TFT_CLASSIC_UI
-//#define TFT_COLOR_UI
+#define TFT_COLOR_UI // Hellbot
 //#define TFT_LVGL_UI
 
 #if ENABLED(TFT_COLOR_UI)
