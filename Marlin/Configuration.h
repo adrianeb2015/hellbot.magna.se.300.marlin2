@@ -2556,7 +2556,7 @@
  *   M501 - Read settings from EEPROM. (i.e., Throw away unsaved changes)
  *   M502 - Revert settings to "factory" defaults. (Follow with M500 to init the EEPROM.)
  */
-#define EEPROM_SETTINGS // Hellbot     // Persistent storage with M500 and M501
+//#define EEPROM_SETTINGS // Hellbot: pendiente hasta tener SD o flash emul     // Persistent storage with M500 and M501
 //#define DISABLE_M503        // Saves ~2700 bytes of flash. Disable for release!
 #define EEPROM_CHITCHAT       // Give feedback on EEPROM commands. Disable to save flash.
 #define EEPROM_BOOT_SILENT    // Keep M503 quiet and only give errors during first load
@@ -2801,7 +2801,7 @@
  * SD Card support is disabled by default. If your controller has an SD slot,
  * you must uncomment the following option or it won't work.
  */
-#define SDSUPPORT // Hellbot: SD en SPI1 (PB5/PB6/PB7, CS PD2)
+//#define SDSUPPORT // Hellbot: DESACTIVADA temporalmente (crashea el FW sin/m con tarjeta; se depura despues)
 
 /**
  * SD CARD: ENABLE CRC
@@ -3513,7 +3513,7 @@
 //
 // MKS TS24-R V2.1 (2.4" 320x240 ST7789V) as shipped with the MKS DLC32
 //
-//#define MKS_TS24_R_V2_1
+#define MKS_TS24_R_V2_1 // Hellbot: panel real segun init del firmware de fabrica (ST7789V 320x240)
 
 //
 // 320x240, 2.4", FSMC Display From MKS
@@ -3595,8 +3595,7 @@
 //
 // Generic TFT with detailed options
 //
-// Hellbot: panel MKS TS35-R V2.0 de fabrica = ILI9488 (DeviceCode 0x9488 en el fuente de fabrica)
-#define TFT_GENERIC
+//#define TFT_GENERIC (hellbot: el panel es ST7789V, preset MKS_TS24_R_V2_1)
 #if ENABLED(TFT_GENERIC)
   // :[ 'AUTO', 'ST7735', 'ST7789', 'ST7796', 'R61505', 'ILI9328', 'ILI9341', 'ILI9488' ]
   #define TFT_DRIVER ILI9488
@@ -3680,7 +3679,7 @@
  *
  * :{ 'TFT_NO_ROTATION':'None', 'TFT_ROTATE_90':'90°', 'TFT_ROTATE_90_MIRROR_X':'90° (Mirror X)', 'TFT_ROTATE_90_MIRROR_Y':'90° (Mirror Y)', 'TFT_ROTATE_180':'180°', 'TFT_ROTATE_180_MIRROR_X':'180° (Mirror X)', 'TFT_ROTATE_180_MIRROR_Y':'180° (Mirror Y)', 'TFT_ROTATE_270':'270°', 'TFT_ROTATE_270_MIRROR_X':'270° (Mirror X)', 'TFT_ROTATE_270_MIRROR_Y':'270° (Mirror Y)', 'TFT_MIRROR_X':'Mirror X', 'TFT_MIRROR_Y':'Mirror Y' }
  */
-  #define TFT_ROTATION TFT_ROTATE_90 // Hellbot: como el preset MKS (pantalla montada apaisada)
+//#define TFT_ROTATION TFT_ROTATE_90 (el preset MKS_TS24 define la suya) // Hellbot: como el preset MKS (pantalla montada apaisada)
 
 //=============================================================================
 //============================  Other Controllers  ============================

@@ -90,7 +90,7 @@
   #define SDCARD_CONNECTION               ONBOARD
 #endif
 
-#define SDCARD_EEPROM_EMULATION             // Settings stored in a file on the SD card
+//#define SDCARD_EEPROM_EMULATION (hellbot: requiere SD; desactivado hasta depurar SD)
 
 // Hellbot: backlight y reset del panel TS35 (Src/spi_lcd.c del firmware de fabrica:
 // LCD_GPIOInit -> PC10 = TFT_BLK, PC11 = TFT_RESET)
