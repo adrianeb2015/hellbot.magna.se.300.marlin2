@@ -90,6 +90,11 @@ void MarlinHAL::set_pwm_duty(const pin_t pin, const uint16_t value, const uint16
 
 void MarlinHAL::set_pwm_frequency(const pin_t pin, const uint16_t f_desired) {
   PWM_Init(pin, 255, f_desired);
+  // Hellbot fix: el core PWM_Init() deja el contador del timer PARADO
+  // (Timer_SetEnable(TIMx, false)) y nunca lo re-activa -> el PWM no corre.
+  // Mismo tipo de bug que Timer_SetInterruptBase (ver timers.cpp).
+  tmr_type *ptim = PIN_MAP[pin].TIMx;
+  if (ptim) Timer_SetEnable(ptim, true);
 }
 
 void flashFirmware(const int16_t) { MarlinHAL::reboot(); }
