@@ -90,7 +90,8 @@
   #define SDCARD_CONNECTION               ONBOARD
 #endif
 
-//#define SDCARD_EEPROM_EMULATION (hellbot: requiere SD; desactivado hasta depurar SD)
+// Hellbot: EEPROM emulada en flash (ultimo sector 0x0807F000), backend HAL/AT32/eeprom/eeprom_flash.cpp
+#define FLASH_EEPROM_EMULATION
 
 // Hellbot: backlight y reset del panel TS35 (Src/spi_lcd.c del firmware de fabrica:
 // LCD_GPIOInit -> PC10 = TFT_BLK, PC11 = TFT_RESET)
