@@ -3508,7 +3508,7 @@
 // Usually paired with MKS Robin Nano V2 & V3
 // https://github.com/makerbase-mks/MKS-TFT-Hardware/tree/master/MKS%20TS35
 //
-#define MKS_TS35_V2_0 // Hellbot: pantalla de fabrica (ILI9488 SPI2 + XPT2046)
+//#define MKS_TS35_V2_0 // Hellbot: pantalla de fabrica (ILI9488 SPI2 + XPT2046)
 
 //
 // MKS TS24-R V2.1 (2.4" 320x240 ST7789V) as shipped with the MKS DLC32
@@ -3595,19 +3595,20 @@
 //
 // Generic TFT with detailed options
 //
-//#define TFT_GENERIC
+// Hellbot: panel MKS TS35-R V2.0 de fabrica = ILI9488 (DeviceCode 0x9488 en el fuente de fabrica)
+#define TFT_GENERIC
 #if ENABLED(TFT_GENERIC)
   // :[ 'AUTO', 'ST7735', 'ST7789', 'ST7796', 'R61505', 'ILI9328', 'ILI9341', 'ILI9488' ]
-  #define TFT_DRIVER AUTO
+  #define TFT_DRIVER ILI9488
 
   // Interface. Enable one of the following options:
   //#define TFT_INTERFACE_FSMC
-  //#define TFT_INTERFACE_SPI
+  #define TFT_INTERFACE_SPI
 
   // TFT Resolution. Enable one of the following options:
   //#define TFT_RES_320x240
   //#define TFT_RES_480x272
-  //#define TFT_RES_480x320
+  #define TFT_RES_480x320
   //#define TFT_RES_1024x600
 #endif
 
@@ -3679,7 +3680,7 @@
  *
  * :{ 'TFT_NO_ROTATION':'None', 'TFT_ROTATE_90':'90°', 'TFT_ROTATE_90_MIRROR_X':'90° (Mirror X)', 'TFT_ROTATE_90_MIRROR_Y':'90° (Mirror Y)', 'TFT_ROTATE_180':'180°', 'TFT_ROTATE_180_MIRROR_X':'180° (Mirror X)', 'TFT_ROTATE_180_MIRROR_Y':'180° (Mirror Y)', 'TFT_ROTATE_270':'270°', 'TFT_ROTATE_270_MIRROR_X':'270° (Mirror X)', 'TFT_ROTATE_270_MIRROR_Y':'270° (Mirror Y)', 'TFT_MIRROR_X':'Mirror X', 'TFT_MIRROR_Y':'Mirror Y' }
  */
-//#define TFT_ROTATION TFT_NO_ROTATION
+  #define TFT_ROTATION TFT_ROTATE_90 // Hellbot: como el preset MKS (pantalla montada apaisada)
 
 //=============================================================================
 //============================  Other Controllers  ============================
