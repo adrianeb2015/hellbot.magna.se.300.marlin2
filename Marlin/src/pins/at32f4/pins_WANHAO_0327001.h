@@ -83,8 +83,11 @@
 #define TFT_MOSI_PIN                        PB15
 #define TFT_CS_PIN                          PB8
 #define TFT_DC_PIN                          PA11   // RS
+#define TFT_A0_PIN                 TFT_DC_PIN      // SPI TFT command/data select
 #define TOUCH_CS_PIN                        PA12
 
 #ifndef SDCARD_CONNECTION
   #define SDCARD_CONNECTION               ONBOARD
 #endif
+
+#define SDCARD_EEPROM_EMULATION             // Settings stored in a file on the SD card
