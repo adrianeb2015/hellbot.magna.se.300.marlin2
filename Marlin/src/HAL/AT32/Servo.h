@@ -26,7 +26,15 @@
 
 #include <Servo.h> // AT32 Arduino core Servo class
 
+/**
+ * return last written value in servo.read instead of calculated value
+ */
+#define OPTIMISTIC_SERVO_READ
+
+typedef uint16_t servo_angle_t;
+
 // Forward declarations for Servo.cpp
+class MarlinServo;
 extern uint8_t servoCount;
 extern MarlinServo* servos[];
 
@@ -37,7 +45,7 @@ class MarlinServo {
 public:
   MarlinServo();
 
-  int8_t attach(const pin_t pin);
+  int8_t attach(const int apin); // apin == -1 re-attaches the previous pin
   void   detach();
   bool   attached();
   void   write(servo_angle_t angle);

@@ -1374,7 +1374,7 @@
  * Override with M92 (when enabled below)
  *                                      X, Y, Z [, I [, J [, K...]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 500 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 400 } // Hellbot fix: valores reales del factory (robin_nano_cfg.txt, TMC2225 a 1/32); con 80/80/400/500 los ejes iban a media velocidad y el homing fallaba desde lejos
 
 /**
  * Enable support for M92. Disable to save at least ~530 bytes of flash.
@@ -1489,10 +1489,10 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
-#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+//#define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN // Hellbot: el Z_MIN real (PC13) queda como endstop; el BLTouch va en su propio pin
 
 // Force the use of the probe for Z-axis homing
-//#define USE_PROBE_FOR_Z_HOMING
+#define USE_PROBE_FOR_Z_HOMING // Hellbot: BLTouch montado en el carro, separado de la boquilla
 
 /**
  * Z_MIN_PROBE_PIN
@@ -1556,7 +1556,7 @@
 /**
  * The BLTouch probe uses a Hall effect sensor and emulates a servo.
  */
-//#define BLTOUCH
+#define BLTOUCH // Hellbot: BLTouch en el header servo (PA8, Z_MIN_PROBE_PIN)
 
 /**
  * MagLev V4 probe by MDD
@@ -1745,7 +1745,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 } // (mm) X, Y, Z distance from Nozzle tip to Probe trigger-point
+#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 } // (mm) X, Y, Z distance from Nozzle tip to Probe trigger-point // Hellbot: VALOR DE PLACEHOLDER — medir el offset real del BLTouch y ajustar con M851 X.. Y.. Z.. + M500
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -2454,7 +2454,7 @@
  * - Allows Z homing only when XY positions are known and trusted.
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING // Hellbot: requerido con USE_PROBE_FOR_Z_HOMING (sondea Z en el centro de la cama)
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT X_CENTER  // (mm) X point for Z homing

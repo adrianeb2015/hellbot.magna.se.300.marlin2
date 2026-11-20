@@ -66,6 +66,7 @@
 #define BEEPER_PIN                          PC12
 #define FIL_RUNOUT_PIN                      PC14   // MT_DET
 #define SERVO0_PIN                          PA8    // BL_TOUCH
+#define Z_MIN_PROBE_PIN                     PA8    // BLTouch: señal probe en el mismo pin servo (PWM deploy/stow + entrada endstop)
 
 //
 // SD card: SPI1 compartido con flash (PB5=SCK, PB6=MISO, PB7=MOSI)

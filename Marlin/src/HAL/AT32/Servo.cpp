@@ -29,8 +29,8 @@
 #include "Servo.h"
 #include <Servo.h> // AT32 core's Servo class (uses tmr_type directly)
 
-static uint8_t  servoCount = 0;
-static MarlinServo* servos[NUM_SERVOS] = {nullptr};
+uint8_t servoCount = 0;
+MarlinServo* servos[NUM_SERVOS] = {nullptr};
 
 constexpr uint32_t servoDelays[] = SERVO_DELAY;
 static_assert(COUNT(servoDelays) == NUM_SERVOS, "SERVO_DELAY must be an array NUM_SERVOS long.");
@@ -40,7 +40,7 @@ MarlinServo::MarlinServo() {
   servos[this->channel] = this;
 }
 
-int8_t MarlinServo::attach(const pin_t apin) {
+int8_t MarlinServo::attach(const int apin) {
   if (apin >= 0) this->pin = apin;
   if (this->pin < 0) return -1;
   return this->_servo.attach(this->pin) ? 0 : -1;
