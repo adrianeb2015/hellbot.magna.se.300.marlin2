@@ -57,8 +57,10 @@
 //
 #define HEATER_0_PIN                        PC8    // HEATER1
 #define HEATER_BED_PIN                      PC9    // BED
-#define FAN0_PIN                            PC7    // FAN2 = fan de capa (part cooling, M106)
-#define E0_AUTO_FAN_PIN                     PC6    // E_FAN = fan del hotend, auto por temperatura (factory)
+// Hellbot (verificado fisicamente en la unidad del usuario): PC6 = fan de CAPA,
+// PC7 = fan del HOTEND (el serigrafado E_FAN/FAN2 del factory esta cruzado).
+#define FAN0_PIN                            PC6    // fan de capa (part cooling, M106)
+#define E0_AUTO_FAN_PIN                     PC7    // fan del hotend, auto por temperatura >= 50C
 
 //
 // Misc

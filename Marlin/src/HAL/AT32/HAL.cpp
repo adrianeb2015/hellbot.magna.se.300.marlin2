@@ -90,11 +90,22 @@ void MarlinHAL::set_pwm_duty(const pin_t pin, const uint16_t value, const uint16
 
 void MarlinHAL::set_pwm_frequency(const pin_t pin, const uint16_t f_desired) {
   PWM_Init(pin, 255, f_desired);
-  // Hellbot fix: el core PWM_Init() deja el contador del timer PARADO
+  // Hellbot fix 1: el core PWM_Init() deja el contador del timer PARADO
   // (Timer_SetEnable(TIMx, false)) y nunca lo re-activa -> el PWM no corre.
-  // Mismo tipo de bug que Timer_SetInterruptBase (ver timers.cpp).
   tmr_type *ptim = PIN_MAP[pin].TIMx;
-  if (ptim) Timer_SetEnable(ptim, true);
+  if (!ptim) return;
+  Timer_SetEnable(ptim, true);
+  // Hellbot fix 2: el core deja el modo de comparacion del canal en FROZEN
+  // (cm1/cm2 con c{N}c=0) -> el pin nunca conmuta aunque el CCR tenga duty.
+  // Escribimos explicitamente PWM mode B (2) en los bits de modo del canal:
+  //   ch1: cm1[6:4]   ch2: cm1[14:12]   ch3: cm2[6:4]   ch4: cm2[14:12]
+  const uint8_t ch = PIN_MAP[pin].TimerChannel;
+  switch (ch) {
+    case 1: ptim->cm1 |= 2 << 4;  break;
+    case 2: ptim->cm1 |= 2 << 12; break;
+    case 3: ptim->cm2 |= 2 << 4;  break;
+    case 4: ptim->cm2 |= 2 << 12; break;
+  }
 }
 
 void flashFirmware(const int16_t) { MarlinHAL::reboot(); }
